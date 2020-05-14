@@ -1,0 +1,36 @@
+<h1>index</h1>
+
+<table>
+    <tr>
+        <th>商品画像</th>
+        <th>製品名</th>
+        <th>価格</th>
+        <th>在庫数</th>
+        <th>説明</th>
+        <th>ステータス</th>
+    </tr>
+    <% @products.each do |product| %>
+    <%= form_with(model: product, local: true) do |form| %>
+        <tr>
+            <th><%= product.picture %></th>
+            <th>
+                <%= link_to product_path(product) do %>
+                    <%= product.name %>
+                <% end %>
+            </th>
+            <th><%= product.price %></th>
+            <th><%= product.stock %></th>
+            <th><%= product.explanation %></th>
+            <th>
+                <%= link_to edit_product_path(product) do %>
+                    <%= product.status %>
+                <% end %>
+            </th>
+            <th>
+                <%= render 'products/delete_button', product: product %>
+            </th>
+        </tr>
+    <% end %>
+    <% end %>
+</table>
+<%= link_to '追加', new_product_path %>

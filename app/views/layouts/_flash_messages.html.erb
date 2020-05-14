@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+<% flash.each do |message_type, message| %>
+    <div class="col-10 animated fadeInDown mt-3" style="position: absolute; z-index: 9;">
+        <div class="alert alert-<%= message_type %> alert-dismissible fade show" role="alert">
+          <%= message %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  
+          <script>
+          /* bootstrap alertを4秒後に消す */
+            const FadeOutAlert = () => {
+              $('.animated').removeClass("fadeInDown");
+              $('.animated').addClass("fadeOutUp");
+            };
+            
+            $(window).on('load', () => setTimeout(FadeOutAlert, 3000));
+          </script>
+  
+        </div>
+    </div>
+<% end %>
+</div>
