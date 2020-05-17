@@ -9,7 +9,8 @@ class BasketsController < ApplicationController
   end
 
   def update
-    basket = current_user.baskets.find(params[:id])
+    #user = User.find(params[:user_id])
+    basket = Basket.find(params[:id])
     hash = params[:basket]
     basket.number = hash[:number] 
     basket.save
@@ -19,9 +20,10 @@ class BasketsController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
+    user = User.find(params[:user_id])
     basket = params[:basket]
     number = basket[:number] 
-    current_user.put_in(product, number)
+    user.put_in(product, number)
     flash[:success] = '買い物かごへ入れました'
     redirect_back(fallback_location: root_path)
   end

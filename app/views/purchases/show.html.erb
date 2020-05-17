@@ -1,16 +1,35 @@
 <h1>確認画面</h1>
-<ul>
+<table>
+    <tr>
+        <th>商品名</th>
+        <th>個数</th>
+        <th>価格</th>
+    </tr>
     <% @goods.each do |good| %>
-        <li>
-            <p><%= good.product.name %></p>
-            <p><%= good.number %></p>
-            <p><%= good.product.price %></p>
-        </li>
+        <tr>
+            <td><%= good.product.name %></td>
+            <td><%= good.number %></td>
+            <td><%= good.product.price %></td>
+        </tr>
     <% end %>
-</ul>
-
-<%= @purchase.address %>
-<%= @purchase.payment %>
+</table>
+<table>
+    <tr>
+        <th>お届け先</th>
+        <td><%= @purchase.address %></td>
+    </tr>
+    <tr>
+        <th>支払い方法</th>
+        <td><%= @purchase.payment %></td>
+    </tr>
+    <tr>
+        <th>支払い総額</th>
+        <% @purchase_sum = cul_sum(@purchase) %>
+        <td><%= @purchase_sum %></td>
+    </tr>
+</table>
 <%= link_to '購入確定', complete_purchase_path(@purchase) %>
-<%= link_to '買い物かごへ', shoppings_user_path(current_user) %>
+<%= link_to 'お支払い方法を編集', edit_purchase_path(@purchase)%>
+<%= link_to '購入情報を編集', shoppings_user_path(current_user) %>
+<%= render'purchases/delete_button', purchase: @purchase %>
 <%= render 'products/back_top_button' %>

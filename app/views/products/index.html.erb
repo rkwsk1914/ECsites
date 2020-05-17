@@ -1,13 +1,17 @@
 <h1>toppage</h1>
 <% if logged_in? %>
-    <%= link_to current_user.name, current_user %>
-    <%= link_to '買い物かご' , shoppings_user_path(current_user) %>
-    <%#= link_to '買い物かご' , new_purchase_path %>
-    <%= link_to 'ログアウト', logout_path, method: :delete %>
+    <%= link_to 'ログアウト', logout_path, method: :delete %>    
+    <%= link_to 'マイページ', current_user %>
 <% else %>
     <%= link_to 'ログイン', login_path %>
     <%= link_to '新規登録', new_user_path %>
+    <span><%= current_user.name%></span>
 <% end %>
+    <% basket_counts(current_user) %>
+    <%= link_to shoppings_user_path(current_user), user_id: current_user.id do %>
+        <span>買い物かご</span>
+        <span><%= @baskets_count %></span>
+    <% end %>
 <table>
     <tr>
         <th>商品画像</th>
@@ -20,7 +24,7 @@
     </tr>
     <% @products.each do |product| %>
         <tr>
-            <th><%= product.picture %></th>
+            <th><%= render 'products/picture', product: product, rem: '5rem'%></th>
             <th>
                 <%= link_to product_path(product) do %>
                     <%= product.name %>
@@ -30,9 +34,11 @@
             <th><%= product.explanation %></th>
             <th><%= product.status %></th>
             <th>
-                <%= render 'baskets/shopping_button', product: product %>
+                    <%= render 'baskets/shopping_button', product: product, user: current_user %>
             </th>
         </tr>
     <% end %>
 </table>
-<%= link_to '在庫一覧', stocks_products_path %>
+<% if onwer? %>
+    <%= link_to '在庫一覧', stocks_products_path %>
+<% end %>

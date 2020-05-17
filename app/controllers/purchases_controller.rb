@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
   include PurchasesHelper
   include ProductsHelper
   
-  before_action :require_user_logged_in
+  before_action :require_onwer_logged_in, only: [:index]
   
   def index
     @purchases = Purchase.all
@@ -27,8 +27,9 @@ class PurchasesController < ApplicationController
 
   def create
     @baskets = current_user.baskets
-    @purchase = current_user.purchases.new(purchase_params)
-    @purchase.status = false
+    @purchase = current_user.purchases.new
+    set_purchase_data
+    
     if @purchase.save
       #flash[:success] = '購入登録しました。'
       @baskets.each do |basket|
@@ -48,11 +49,25 @@ class PurchasesController < ApplicationController
   end
   
   def update
-    purchase_find
+    @baskets = current_user.baskets
+    @purchase = Purchase.find(params[:id])
+    set_purchase_data
+    
+    if @purchase.save
+      flash[:success] = '購入情報を更新しました。'
+      redirect_to @purchase
+    else
+      flash.now[:danger] = '更新に失敗しました。'
+      render :edit
+    end 
   end
   
   def destroy
     purchase_find
+    @purchase.goods.destroy_all
+    @purchase.destroy
+    flash[:success] = '購入をキャンセルしました。'
+    redirect_to root_path
   end
   
   def complete
@@ -66,15 +81,31 @@ class PurchasesController < ApplicationController
     
   private
   
+  def set_purchase_data
+    @purchase.status = false
+    @purchase.payment = params[:purchase][:payment]
+    
+    if params[:purchase][:op] == 'user_address'
+      @purchase.address = current_user.address
+    elsif params[:purchase][:op] == 'new_address'
+      @purchase.address = params[:purchase][:address]
+    end
+  end
+  
   def stock_check(baskets)
     baskets.each do |basket|
       product = basket.product
+      
+    puts "================================="
+    p product.stock
+    p all_backet_number(product)
+      
       if product.stock < all_backet_number(product)
         flash[:success] = product.name + 'の販売終了しました。'
-        redirect_to shoppings_user_path
+        redirect_to shoppings_user_path(current_user)
       elsif product.stock == 0
         basket.destory  
-        redirect_to shoppings_user_path
+        redirect_to shoppings_user_path(current_user)
       end
     end
   end
@@ -104,6 +135,6 @@ class PurchasesController < ApplicationController
   end
   
   def purchase_params
-    params.require(:purchase).permit(:address, :payment)
+    params.require(:purchase).permit(:address, :payment, :op)
   end
 end

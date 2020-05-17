@@ -25,7 +25,7 @@
         <tr>
             <td rowspan="<%= count%>"><%= purchase.id %></td>
             <td rowspan="<%= count%>"><%= purchase.user.name %></td>
-            <td rowspan="<%= count%>"><%= purchase.id %></td>
+            <td rowspan="<%= count%>"><%= purchase.created_at %><%#= l purchase.created_at, format: :long %></td>
             <td rowspan="<%= count%>"><%= @purchase_sum %></td>
             <td><%= purchase.goods.first.product.name %></td>
             <td><%= purchase.goods.first.product.price %></td>

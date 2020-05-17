@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   include ProductsHelper
   
-  before_action :require_user_logged_in
+  before_action :require_user_logged_in, only: [:edit, :update, :destroy]
+  before_action :require_onwer_logged_in, except: [:index, :show]
 
   def stocks
     @products = Product.all

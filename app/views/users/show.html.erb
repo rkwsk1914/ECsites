@@ -32,9 +32,8 @@
     <% @purchases.each do |purchase| %>
         <% count = purchase.goods.count %>
         <% @purchase_sum = cul_sum(purchase) %>
-        <% @purchase_status = status_check(purchase) %>
         <tr>
-            <td rowspan="<%= count%>"><%= purchase.id %></td>
+            <td rowspan="<%= count%>"><%= purchase.created_at %><%#= l purchase.created_at, format: :long %></td>
             <td rowspan="<%= count%>"><%= @purchase_sum %></td>
             <td><%= purchase.goods.first.product.name %></td>
             <td><%= purchase.goods.first.number %></td>

@@ -1,0 +1,13 @@
+    <% if product.picture? %>
+        <img 
+         src="<%= product.picture.to_s %>" 
+         class="border rounded-circle" 
+         style="width: <%= rem %>; height: <%= rem %>;"
+        >
+    <% else %>
+        <img 
+         src="/noimage.png" 
+         class="border rounded-circle" 
+         style="width: <%= rem %>; height: <%= rem %>;"
+        >
+    <% end %>

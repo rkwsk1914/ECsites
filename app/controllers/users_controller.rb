@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   include UsersHelper
   
-  before_action :require_user_logged_in, except: [:new, :create]
-  #before_action :correct_user, only: [:edit, :update]
+  before_action :require_user_logged_in, only: [:edit, :update, :destroy]
+  before_action :require_onwer_logged_in, only: [:index]
+  before_action :correct_user, only: [:edit, :update]
   
   def index
     @users = User.all #order(id: :desc).page(params[:page]).per(25)

@@ -10,4 +10,4 @@
   Product.create(name:'test-produtcs-' + number.to_s, price: 3000, stock: 10, explanation: "This is test.これはテストデータです。", picture: nil, status: "SALE")
 end
 
-User.create(name: 'TEST-USER', email: 'test@exam.com', password:'testpass', password_confirmation:'testpass', address: '東京都新宿区西新宿２丁目８−１', payment: 'コンビニ支払い')
+User.create(name: 'OWNER', email: 'owner@exam.com', password:'siteowner', password_confirmation:'siteowner')

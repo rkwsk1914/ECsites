@@ -18,10 +18,18 @@
                 <%= basket.product.price %>
             </th>
             <th>
-                <%= render 'baskets/shopping_button', product: basket.product %>
+                <% if current_user %>
+                    <%= render 'baskets/shopping_button', product: basket.product, user: current_user %>
+                <% else %>
+                    <%= render 'baskets/shopping_button', product: basket.product, user: guest_user %>
+                <% end %>
             </th>
             <th>
-                <%= render 'baskets/delete_button', product: basket.product %>
+                <% if current_user %>
+                    <%= render 'baskets/delete_button', product: basket.product, user: current_user %>
+                <% else %>
+                    <%= render 'baskets/delete_button', product: basket.product, user: guest_user %>
+                <% end %>
             </th>
         </tr>
         <% end %>    
