@@ -1,0 +1,59 @@
+<h1><%= @user.name %></h1>
+<%= link_to '会員情報編集', edit_user_path(@user) %>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>email</th>
+        <th>住所<th>
+        <th>登録支払い方法<th>
+    </tr>
+    <tr>
+        <th><%= @user.id %></th>
+        <th><%= @user.email %></th>
+        <th><%= @user.address %><th>
+        <th><%= @user.payment %><th>
+    </tr>
+</table>
+
+<h2>購入履歴</h2>
+<table>
+    <tr>
+        <th rowspan="2">購入日</th>
+        <th rowspan="2">支払い総額</th>
+        <th colspan="3">購入内訳</th>
+        <th rowspan="2">お届け先</th>
+        <th rowspan="2">登録支払い方法</th>
+    </tr>
+    <tr>
+        <th>商品</th>
+        <th>購入数</th>
+        <th>商品単価</th>
+    </tr>
+    <% @purchases.each do |purchase| %>
+        <% count = purchase.goods.count %>
+        <% @purchase_sum = cul_sum(purchase) %>
+        <% @purchase_status = status_check(purchase) %>
+        <tr>
+            <td rowspan="<%= count%>"><%= purchase.id %></td>
+            <td rowspan="<%= count%>"><%= @purchase_sum %></td>
+            <td><%= purchase.goods.first.product.name %></td>
+            <td><%= purchase.goods.first.number %></td>
+            <td><%= purchase.goods.first.product.price %></td>
+            <td rowspan="<%= count%>"><%= purchase.address %></td>
+            <td rowspan="<%= count%>"><%= purchase.payment %></td>
+        </tr>
+        <% flag = 0 %>
+        <% purchase.goods.each do |good| %>
+            <% unless flag == 0 %>
+                <tr>
+                    <td><%= good.product.name %></td>
+                    <td><%= good.number %></td>
+                    <td><%= good.product.price %></td>
+                <tr>
+            <% else %>
+                <% flag = 1 %>
+            <% end %>
+        <% end %>
+    <% end %>
+</table>
+<%= render 'products/back_top_button' %>

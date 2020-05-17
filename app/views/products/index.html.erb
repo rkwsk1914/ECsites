@@ -1,16 +1,24 @@
-<h1>index</h1>
-
+<h1>toppage</h1>
+<% if logged_in? %>
+    <%= link_to current_user.name, current_user %>
+    <%= link_to '買い物かご' , shoppings_user_path(current_user) %>
+    <%#= link_to '買い物かご' , new_purchase_path %>
+    <%= link_to 'ログアウト', logout_path, method: :delete %>
+<% else %>
+    <%= link_to 'ログイン', login_path %>
+    <%= link_to '新規登録', new_user_path %>
+<% end %>
 <table>
     <tr>
         <th>商品画像</th>
         <th>製品名</th>
         <th>価格</th>
-        <th>在庫数</th>
         <th>説明</th>
         <th>ステータス</th>
+        <th>個数</th>
+        <th>購入<th>
     </tr>
     <% @products.each do |product| %>
-    <%= form_with(model: product, local: true) do |form| %>
         <tr>
             <th><%= product.picture %></th>
             <th>
@@ -19,18 +27,12 @@
                 <% end %>
             </th>
             <th><%= product.price %></th>
-            <th><%= product.stock %></th>
             <th><%= product.explanation %></th>
+            <th><%= product.status %></th>
             <th>
-                <%= link_to edit_product_path(product) do %>
-                    <%= product.status %>
-                <% end %>
-            </th>
-            <th>
-                <%= render 'products/delete_button', product: product %>
+                <%= render 'baskets/shopping_button', product: product %>
             </th>
         </tr>
     <% end %>
-    <% end %>
 </table>
-<%= link_to '追加', new_product_path %>
+<%= link_to '在庫一覧', stocks_products_path %>

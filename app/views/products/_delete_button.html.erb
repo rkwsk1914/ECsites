@@ -1,2 +1,4 @@
-<% msg = '『' + product.name + '』を削除しますか?' %>
-<%= link_to "削除", product, method: :delete, data: { confirm: msg }, class: 'col-sm-12 btn btn-outline-secondary btn-sm' %>
+<%= form_with(model: product, local: true) do |form| %>
+    <% msg = '『' + product.name + '』を削除しますか?' %>
+    <%= link_to "削除", product, method: :delete, data: { confirm: msg }, class: 'col-sm-12 btn btn-outline-secondary btn-sm' %>
+<% end %>

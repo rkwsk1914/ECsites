@@ -1,0 +1,44 @@
+<h1>在庫一覧</h1>
+<%= link_to 'ユーザー一覧', users_path %>
+<%= link_to '購入履歴一覧', purchases_path %>
+<table>
+    <tr>
+        <th>商品画像</th>
+        <th>製品名</th>
+        <th>価格</th>
+        <th>在庫数</th>
+        <th>説明</th>
+        <th>ステータス</th>
+        <th>変更ボタン</th>
+        <th>削除ボタン</th>
+    </tr>
+    <% @products.each do |product| %>
+        <tr>
+            <%= form_with(model: product, local: true) do |f| %>
+                <th>
+                    <%= link_to edit_product_path(product) do %>
+                        <%= product.picture %>
+                    <% end %>
+                </th>
+                <th><%= f.text_field :price, value: product.name, class: 'form-control' %></th>
+                <th><%= f.number_field :price, value: product.price, class: 'form-control' %></th>
+                <th><%= f.number_field :stock, value: product.stock, class: 'form-control' %></th>
+                <th><%= f.text_area :explanation, class: 'form-control', size: "30x3", value: product.explanation %></th>
+                <th>
+                    <%= product.status %>
+                    <%= f.select(:status) do %>
+                            <% [['SALE', 'SALE'],['SOLD OUT', 'SOLD OUT'], ['入荷待ち', '入荷待ち'], ['END', 'END']].each do |c| -%>
+                            <%= content_tag(:option, c.first) %>
+                        <% end %>
+                    <% end %>
+                </th>
+                <th><%= f.submit '変更', class: 'btn btn-danger btn-block' %></th>
+            <% end %>
+            <th>
+                <%= render 'products/delete_button', product: product %>
+            </th>
+        </tr>
+    <% end %>
+</table>
+<%= link_to '追加', new_product_path %>
+<%= render 'products/back_top_button' %>

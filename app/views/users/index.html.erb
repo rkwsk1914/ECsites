@@ -1,0 +1,21 @@
+<h1>ユーザー一覧</h1>
+<%= link_to '在庫一覧', stocks_products_path %>
+<%= link_to '購入履歴一覧', purchases_path %>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>ユーザー名</th>
+        <th>メールアドレス</th>
+        <th>登録住所</th>
+        <th>登録支払い方法</th>
+    </tr>
+    <% @users.each do |user| %>
+        <tr>
+            <th><%= user.id %></th>
+            <th><%= user.name %></th>
+            <th><%= user.email %></th>
+            <th><%= user.address %></th>
+            <th><%= user.payment %></th>
+        </tr>
+    <% end %>
+</table>

@@ -1,0 +1,16 @@
+<h1>確認画面</h1>
+<ul>
+    <% @goods.each do |good| %>
+        <li>
+            <p><%= good.product.name %></p>
+            <p><%= good.number %></p>
+            <p><%= good.product.price %></p>
+        </li>
+    <% end %>
+</ul>
+
+<%= @purchase.address %>
+<%= @purchase.payment %>
+<%= link_to '購入確定', complete_purchase_path(@purchase) %>
+<%= link_to '買い物かごへ', shoppings_user_path(current_user) %>
+<%= render 'products/back_top_button' %>

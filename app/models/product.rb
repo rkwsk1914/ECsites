@@ -5,4 +5,8 @@ class Product < ApplicationRecord
   #validates :picture, presence: true
   validates :stock, presence: true
   validates :explanation, presence: true, length: { maximum: 100 }
+  
+  has_many :baskets
+  has_many :goods
+  has_many :buyer, through: :baskets, source: :user
 end

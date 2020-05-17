@@ -1,4 +1,11 @@
 class ProductsController < ApplicationController
+  include ProductsHelper
+  
+  before_action :require_user_logged_in
+
+  def stocks
+    @products = Product.all
+  end
   
   def index
     @products = Product.all
@@ -27,21 +34,26 @@ class ProductsController < ApplicationController
   def edit
     find_product
   end
-  
+
   def update
     find_product
-    
-    if @produtc.update(lyrics_params)
+    if @product.stock == 0 && @product.status == 'SALE'
+      flash.now[:danger] = '在庫が0のため、SALEに設定できません'
+      @products = Product.all
+      render :stocks
+    elsif @product.update(product_params)
       flash[:success] = @product.name + 'のデータを更新しました。'
-      redirect_to @product
+      redirect_to stocks_products_path
     else
       flash.now[:danger] = '更新失敗しました。'
-      render :edit
+      @products = Product.all
+      render :stocks
     end
   end
   
   def destroy
     find_product
+    @product.baskets.destroy_all
     
     @product.destroy
     flash[:success] = @product.name + 'を削除しました。'

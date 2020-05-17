@@ -1,0 +1,36 @@
+<h1>買い物かご</h1>
+<% if @baskets.first == nil %>
+    <p>買い物かごは空です。</p>
+<% else %>
+    <table>
+        <tr>
+            <th>商品名</th>
+            <th>価格</th>
+            <th>変更ボタン</th>
+            <th>削除ボタン</th>
+        </tr>
+        <% @baskets.each do |basket| %>
+        <tr>
+            <th>
+                <%= basket.product.name %>
+            </th>
+            <th>
+                <%= basket.product.price %>
+            </th>
+            <th>
+                <%= render 'baskets/shopping_button', product: basket.product %>
+            </th>
+            <th>
+                <%= render 'baskets/delete_button', product: basket.product %>
+            </th>
+        </tr>
+        <% end %>    
+    </table>
+    <% purchase = current_user.purchases.find_by(status: false) %>
+    <% unless purchase %>
+        <%= link_to '支払い手続きへ', new_purchase_path %>
+    <% else %>
+        <%= link_to '確認画面へ', purchase %>
+    <% end %>
+<% end %>
+<%= render 'products/back_top_button' %>
