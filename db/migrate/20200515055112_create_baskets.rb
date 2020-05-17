@@ -7,7 +7,7 @@ class CreateBaskets < ActiveRecord::Migration[5.2]
       t.boolean :status
 
       t.timestamps
-      t.index [:user_id, :follow_id], unique: true
+      t.index [:user_id, :product_id], unique: true
     end
   end
 end
