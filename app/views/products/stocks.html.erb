@@ -17,7 +17,7 @@
             <%= form_with(model: product, local: true) do |f| %>
                 <th>
                     <%= link_to edit_product_path(product) do %>
-                        <%= product.picture %>
+                        <%= render 'products/picture', product: product, rem: '5rem'%>
                     <% end %>
                 </th>
                 <th><%= f.text_field :price, value: product.name, class: 'form-control' %></th>
