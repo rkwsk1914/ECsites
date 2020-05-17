@@ -55,3 +55,20 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'kaminari'
+
+gem 'bootstrap', '~> 4.1.1'
+
+gem 'font-awesome-sass', '~> 5.4.1'
+
+gem 'fog-aws'
+#gem 'fog'
+
+gem 'dotenv-rails'
+
+#gem 'carrierwave', '~> 1.3.1'
+gem 'carrierwave'
+
+gem 'i18n_generators'
+
+gem 'mini_magick'
+gem 'aws-sdk-s3', require: false

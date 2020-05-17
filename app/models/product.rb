@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   validates :stock, presence: true
   validates :explanation, presence: true, length: { maximum: 100 }
   
+  mount_uploader :picture, PicturesUploader
+  
   has_many :baskets
   has_many :goods
   has_many :buyer, through: :baskets, source: :user
