@@ -6,14 +6,13 @@ class ApplicationController < ActionController::Base
   private
 
   def create_owner
-    unless User.first
-      User.create(
+    user = User.first
+      user.update(
         name: 'Site-Owner',
         email: 'onwer@exam.com',
         password: 'siteowner',
         password_confirmation: 'siteowner'
         )
-    end
   end
 
   def require_user_logged_in
