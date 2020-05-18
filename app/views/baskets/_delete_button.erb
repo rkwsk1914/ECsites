@@ -2,6 +2,6 @@
     <%= form_with(model: current_user.baskets.find_by(product_id: product.id), local: true, method: :delete) do |f| %>
         <%= hidden_field_tag :product_id, product.id %>
         <%= hidden_field_tag :user_id, user.id %>
-        <%= f.submit '削除', class: 'btn btn-danger btn-block' %>
+        <%= f.submit '削除' %>
     <% end %>
 <% end %>

@@ -34,4 +34,4 @@
 <%= link_to 'お支払い方法を編集', edit_purchase_path(@purchase)%>
 <%= link_to '購入情報を編集', shoppings_user_path(current_user) %>
 <%= render'purchases/delete_button', purchase: @purchase %>
-<%= link_to "back_to_top", @purchase, method: :delete, class: 'col-sm-12 btn btn-outline-secondary btn-sm' %>
+<%= link_to "back_to_top", @purchase, method: :delete %>
