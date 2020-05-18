@@ -5,16 +5,6 @@ class ApplicationController < ActionController::Base
   
   private
 
-  def create_owner
-    user = User.first
-      user.update(
-        name: 'Site-Owner',
-        email: 'onwer@exam.com',
-        password: 'siteowner',
-        password_confirmation: 'siteowner'
-        )
-  end
-
   def require_user_logged_in
     unless logged_in?
       redirect_to root_url

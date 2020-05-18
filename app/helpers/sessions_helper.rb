@@ -26,7 +26,7 @@ module SessionsHelper
   end
   
   def onwer?
-    if current_user && current_user.id == 1
+    if current_user && current_user.email == 'owner@exam.com'
       return true
     else
       return false

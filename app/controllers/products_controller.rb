@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   include ProductsHelper
   
-  before_action :create_owner, only: [:index]
   before_action :require_user_logged_in, only: [:edit, :update, :destroy]
   before_action :require_onwer_logged_in, except: [:index, :show]
 
