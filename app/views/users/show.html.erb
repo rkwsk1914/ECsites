@@ -20,12 +20,13 @@
     <tr>
         <th rowspan="2">購入日</th>
         <th rowspan="2">支払い総額</th>
-        <th colspan="3">購入内訳</th>
+        <th colspan="4">購入内訳</th>
         <th rowspan="2">お届け先</th>
         <th rowspan="2">登録支払い方法</th>
     </tr>
     <tr>
         <th>商品</th>
+        <th>商品名</th>
         <th>購入数</th>
         <th>商品単価</th>
     </tr>
@@ -35,6 +36,7 @@
         <tr>
             <td rowspan="<%= count%>"><%= purchase.created_at %><%#= l purchase.created_at, format: :long %></td>
             <td rowspan="<%= count%>"><%= @purchase_sum %></td>
+            <td><%= render 'products/picture', product: purchase.goods.first.product, rem: '2rem'%></td>
             <td><%= purchase.goods.first.product.name %></td>
             <td><%= purchase.goods.first.number %></td>
             <td><%= purchase.goods.first.product.price %></td>
@@ -45,6 +47,7 @@
         <% purchase.goods.each do |good| %>
             <% unless flag == 0 %>
                 <tr>
+                    <td><%= render 'products/picture', product: good.product, rem: '2rem'%></td>
                     <td><%= good.product.name %></td>
                     <td><%= good.number %></td>
                     <td><%= good.product.price %></td>

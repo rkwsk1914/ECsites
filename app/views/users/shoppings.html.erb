@@ -4,6 +4,7 @@
 <% else %>
     <table>
         <tr>
+            <th>商品</th>
             <th>商品名</th>
             <th>価格</th>
             <th>変更ボタン</th>
@@ -11,26 +12,29 @@
         </tr>
         <% @baskets.each do |basket| %>
         <tr>
-            <th>
+            <td>
+                <%= render 'products/picture', product: basket.product, rem: '5rem'%>
+            </td>
+            <td>
                 <%= basket.product.name %>
-            </th>
-            <th>
+            </td>
+            <td>
                 <%= basket.product.price %>
-            </th>
-            <th>
+            </td>
+            <td>
                 <% if current_user %>
                     <%= render 'baskets/shopping_button', product: basket.product, user: current_user %>
                 <% else %>
                     <%= render 'baskets/shopping_button', product: basket.product, user: guest_user %>
                 <% end %>
-            </th>
-            <th>
+            </td>
+            <td>
                 <% if current_user %>
                     <%= render 'baskets/delete_button', product: basket.product, user: current_user %>
                 <% else %>
                     <%= render 'baskets/delete_button', product: basket.product, user: guest_user %>
                 <% end %>
-            </th>
+            </td>
         </tr>
         <% end %>    
     </table>

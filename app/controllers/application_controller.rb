@@ -5,6 +5,17 @@ class ApplicationController < ActionController::Base
   
   private
 
+  def create_owner
+    unless User.first
+      User.create(
+        name: 'Site-Owner',
+        email: 'onwer@exam.com',
+        password: 'siteowner',
+        password_confirmation: 'siteowner'
+        )
+    end
+  end
+
   def require_user_logged_in
     unless logged_in?
       redirect_to root_url

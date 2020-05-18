@@ -9,5 +9,3 @@
 (1..10).each do |number|
   Product.create(name:'test-produtcs-' + number.to_s, price: 3000, stock: 10, explanation: "This is test.これはテストデータです。", picture: nil, status: "SALE")
 end
-
-User.create(name: 'OWNER', email: 'owner@exam.com', password:'siteowner', password_confirmation:'siteowner')
