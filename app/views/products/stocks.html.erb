@@ -21,8 +21,8 @@
                     <% end %>
                 </th>
                 <th><%= f.text_field :price, value: product.name, class: 'form-control' %></th>
-                <th><%= f.number_field :price, value: product.price, class: 'form-control' %></th>
-                <th><%= f.number_field :stock, value: product.stock, class: 'form-control' %></th>
+                <th><%= f.number_field :price, value: product.price, min: 0, class: 'form-control' %></th>
+                <th><%= f.number_field :stock, value: product.stock, min: 0, class: 'form-control' %></th>
                 <th><%= f.text_area :explanation, class: 'form-control', size: "30x3", value: product.explanation %></th>
                 <th>
                     <%= product.status %>
@@ -32,7 +32,7 @@
                         <% end %>
                     <% end %>
                 </th>
-                <th><%= f.submit '変更', class: 'btn btn-danger btn-block' %></th>
+                <th><%= f.submit '変更' %></th>
             <% end %>
             <th>
                 <%= render 'products/delete_button', product: product %>

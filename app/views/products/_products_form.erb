@@ -13,15 +13,15 @@
             <%= form.label :price, '価格', class: 'col-form-label col-form-label' %>
         </div>
         <div class="col-sm-10">
-            <%= number_field :product, :price, class: 'form-control' %>
+            <%= number_field :product, :price, min: 0, class: 'form-control' %>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <%= form.label :stock, '在庫数', class: 'col-form-label col-form-label' %>
+            <%= form.label :stock, '在庫数', min: 0, class: 'col-form-label col-form-label' %>
         </div>
         <div class="col-sm-10">
-            <%= number_field :product, :stock, class: 'form-control' %>
+            <%= number_field :product, :stock, min: 0, class: 'form-control' %>
         </div>
     </div>
     <div class="form-group row">

@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
     
     if @product.save
       flash[:success] = @product.name + 'を追加しました。'
-      redirect_to root_path
+      redirect_to stocks_products_path
     else
       flash.now[:danger] = '追加に失敗しました。'
       render :new
@@ -38,8 +38,14 @@ class ProductsController < ApplicationController
 
   def update
     find_product
+    @product.stock = params[:product][:stock]
+    @product.status = params[:product][:status]
     if @product.stock == 0 && @product.status == 'SALE'
       flash.now[:danger] = '在庫が0のため、SALEに設定できません'
+      @products = Product.all
+      render :stocks
+    elsif @product.stock != 0 && @product.status == 'SOLD OUT' || @product.status == '入荷待ち' || @product.status == 'END'
+      flash.now[:danger] = '在庫が0ではないため、'+@product.status+'に設定できません'
       @products = Product.all
       render :stocks
     elsif @product.update(product_params)
